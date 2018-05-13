@@ -24,27 +24,36 @@
 #define GapBetweenPasswordAndLoginButton 49
 #define LoginButtonHeight 44
 #define GapBetweenLoginButtonAndRegister 22
-#define RegisterButtonHeight 13
+#define RegisterLabelHeight 13
 #define GapBetweenRegisterAndForget 140
-#define ForgetButtonHeight 15
+#define ForgetLabelHeight 15
 #define GapBelowForget 30
 
 #define LogoImageY TitleViewHeight + GapBetweenTitleAndLogo
 #define PhoneViewY LogoImageY + LogoImageHeight + GapBetweenLogoAndPhone
 #define PasswordViewY PhoneViewY + PhoneViewHeight + 30
+#define LoginButtonY PasswordViewY + PasswordViewHeight + GapBetweenPasswordAndLoginButton
+#define RegisterLabelY LoginButtonY + LoginButtonHeight + GapBetweenLoginButtonAndRegister
+#define ForgetLabelY Screen_Height - GapBelowForget - ForgetLabelHeight
 
 #define LogoImageWidth 151
 #define LogoImageX (Screen_Width - LogoImageWidth)/2
+#define LoginButtonX 37
+#define LoginButtonW 300
+#define RegisterLabelWidth 50
+#define RegisterLabelX (Screen_Width - RegisterLabelWidth)/2
+#define ForgetLabelWidth 100
+#define ForgetLabelX (Screen_Width - ForgetLabelWidth)/2
 
 @interface WMLoginViewController ()
 @property (nonatomic,strong) UILabel *titleLable;
 @property (nonatomic,strong) UIImageView *logoImageView;
 @property (nonatomic,strong) WMUnderLineView *phoneView;
 @property (nonatomic,strong) WMUnderLineView *passwordView;
-@property (nonatomic,strong) UIButton *weChatButton;
+@property (nonatomic,strong) UIView *wechatView;
 @property (nonatomic,strong) UIButton *loginButton;
-@property (nonatomic,strong) UIButton *registerButton;
-@property (nonatomic,strong) UIButton *forgetButton;
+@property (nonatomic,strong) UILabel *registerLabel;
+@property (nonatomic,strong) UILabel *forgetLabel;
 @end
 
 @implementation WMLoginViewController
@@ -57,7 +66,10 @@
     [self.view addSubview:self.logoImageView];
     [self.view addSubview:self.phoneView];
     [self.view addSubview:self.passwordView];
-    [self addsubViews];
+    [self.view addSubview:self.wechatView];
+    [self.view addSubview:self.loginButton];
+    [self.view addSubview:self.registerLabel];
+    [self.view addSubview:self.forgetLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,7 +85,7 @@
 }
 
 #pragma mark - Target action
-- (void)weChat {
+- (void)wechat {
     NSLog(@"%s",__func__);
 }
 
@@ -83,62 +95,14 @@
     app.window.rootViewController = tabVC;
 }
 
-- (void)doRegister{
+- (void)doRegister {
     WMRegisterViewController *vc = [[WMRegisterViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)doForgetPass {
+- (void)doForgetPassword {
     WMForgetPassViewController *vc = [[WMForgetPassViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - Inner methods
-- (void)addsubViews {
-    
-    
-    
-    
-    CGFloat weChatButtonW = 80;
-    CGFloat weChatButtonX = CGRectGetMaxX(self.passwordView.frame)-weChatButtonW-35;
-    CGFloat weChatButtonY = CGRectGetMaxY(self.passwordView.frame)+8;
-    CGFloat weChatButtonH = 35;
-    self.weChatButton = [[UIButton alloc] initWithFrame:CGRectMake(weChatButtonX, weChatButtonY, weChatButtonW, weChatButtonH)];
-    [self.weChatButton setTitle:@"微信登录" forState:UIControlStateNormal];
-    self.weChatButton.imageView.image = [UIImage imageNamed:@"login_wechat"];
-    [self.weChatButton addTarget:self action:@selector(weChat) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.weChatButton];
-    
-    CGFloat loginButtonW = Screen_Width - 30*2;
-    CGFloat loginButtonX = 30;
-    CGFloat loginButtonY = CGRectGetMaxY(self.weChatButton.frame)+8;
-    CGFloat loginButtonH = 44;
-    self.loginButton = [[UIButton alloc] initWithFrame:CGRectMake(loginButtonX, loginButtonY, loginButtonW, loginButtonH)];
-    [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
-    self.loginButton.backgroundColor = [UIColor greenColor];
-    [self.loginButton addTarget:self action:@selector(doLogin) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.loginButton];
-    
-    CGFloat registerButtonW = Screen_Width - 30*2;
-    CGFloat registerButtonX = 30;
-    CGFloat registerButtonY = CGRectGetMaxY(self.loginButton.frame)+8;
-    CGFloat registerButtonH = 44;
-    self.registerButton = [[UIButton alloc] initWithFrame:CGRectMake(registerButtonX, registerButtonY, registerButtonW, registerButtonH)];
-    [self.registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    self.registerButton.backgroundColor = [UIColor greenColor];
-    [self.registerButton addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.registerButton];
-    
-    
-    CGFloat forgetButtonW = Screen_Width - 30*2;
-    CGFloat forgetButtonX = 30;
-    CGFloat forgetButtonH = 44;
-    CGFloat forgetButtonY = Screen_Height - Bottom_height - forgetButtonH - 20;
-    self.forgetButton = [[UIButton alloc] initWithFrame:CGRectMake(forgetButtonX, forgetButtonY, forgetButtonW, forgetButtonH)];
-    [self.forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
-    self.forgetButton.backgroundColor = [UIColor greenColor];
-    [self.forgetButton addTarget:self action:@selector(doForgetPass) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.forgetButton];
 }
 
 #pragma mark - Getters and setters
@@ -185,6 +149,71 @@
         _passwordView.textField.adjustsFontSizeToFitWidth = YES;
     }
     return _passwordView;
+}
+
+- (UIView *)wechatView {
+    if (!_wechatView) {
+        CGFloat wechatButtonX = 250;
+        CGFloat wechatButtonY = PasswordViewY + PasswordViewHeight + 13;
+        CGFloat wechatButtonW = 87;
+        CGFloat wechatButtonH = 14;
+        _wechatView = [[UIView alloc] initWithFrame:CGRectMake(wechatButtonX, wechatButtonY, wechatButtonW, wechatButtonH)];
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 17)];
+        imageView.image = [UIImage imageNamed:@"login_weixin"];
+        [_wechatView addSubview:imageView];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(21+5, 0, 99, 17)];
+        label.text = @"微信登录";
+        label.textColor = [WMUIUtility color:@"0x23938b"];
+        label.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
+        [_wechatView addSubview:label];
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(wechat)];
+        [_wechatView addGestureRecognizer:recognizer];
+    }
+    return _wechatView;
+}
+
+- (UIButton *)loginButton {
+    if (!_loginButton) {
+        _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(LoginButtonX, LoginButtonY, LoginButtonW, LoginButtonHeight)];
+        [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+        _loginButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
+        _loginButton.titleLabel.textColor = [WMUIUtility color:@"ffffff"];
+        [_loginButton.layer setCornerRadius:4];
+        _loginButton.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
+        [_loginButton addTarget:self action:@selector(doLogin) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _loginButton;
+}
+
+- (UILabel *)registerLabel {
+    if (!_registerLabel) {
+        _registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(RegisterLabelX, RegisterLabelY, RegisterLabelWidth, RegisterLabelHeight)];
+        _registerLabel.text = @"注册";
+        _registerLabel.textAlignment = NSTextAlignmentCenter;
+        _registerLabel.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
+        _registerLabel.textColor = [WMUIUtility color:@"0x23938b"];
+        _registerLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doRegister)];
+        [_registerLabel addGestureRecognizer:recognizer];
+    }
+    return _registerLabel;
+}
+
+- (UILabel *)forgetLabel {
+    if (!_forgetLabel) {
+        _forgetLabel = [[UILabel alloc] initWithFrame:CGRectMake(ForgetLabelX, ForgetLabelY, ForgetLabelWidth, ForgetLabelHeight)];
+        _forgetLabel.text = @"忘记密码？";
+        _forgetLabel.textAlignment = NSTextAlignmentCenter;
+        
+        _forgetLabel.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
+        _forgetLabel.textColor = [WMUIUtility color:@"0x23938b"];
+        _forgetLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doForgetPassword)];
+        [_forgetLabel addGestureRecognizer:recognizer];
+    }
+    return _forgetLabel;
 }
 
 @end
