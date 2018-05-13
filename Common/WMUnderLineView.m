@@ -8,6 +8,7 @@
 
 #import "WMUnderLineView.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @implementation WMUnderLineView
 
@@ -25,47 +26,48 @@
 }
 
 - (void)addSubviews:(WMUnderLineViewType)type {
-    CGFloat imageViewX = 35;
+    CGFloat imageViewX = 37;
     CGFloat imageViewY = 3;
-    CGFloat imageViewW = 24;
-    CGFloat imageViewH = 44;
+    CGFloat imageViewW = 12;
+    CGFloat imageViewH = 18;
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
-    self.imageView.backgroundColor = [UIColor redColor];
     [self addSubview:self.imageView];
     
-    CGFloat rightW = type == WMUnderLineViewTypeNormal ? 0 : 80;
+//    CGFloat rightW = type == WMUnderLineViewTypeNormal ? 0 : 80;
     
-    CGFloat textFieldX = CGRectGetMaxX(self.imageView.frame) + 8;
-    CGFloat textFieldW = Screen_Width - textFieldX - 35 -rightW;
+    CGFloat textFieldX = CGRectGetMaxX(self.imageView.frame) + 15;
+    CGFloat textFieldW = Screen_Width - textFieldX - 30;
     CGFloat textFieldY = 3;
-    CGFloat textFieldH = 44;
+    CGFloat textFieldH = 15;
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, textFieldY, textFieldW, textFieldH)];
     
     [self addSubview:self.textField];
     
-    CGFloat rightX = CGRectGetMaxX(self.textField.frame)+5;
-    CGFloat rightY = imageViewY;
-    CGFloat rightH =44;
-    if(type != WMUnderLineViewTypeNormal) {
-        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(rightX, rightY, rightW-5, rightH)];
-        self.rightButton.backgroundColor = [UIColor redColor];
-        [self addSubview:self.rightButton];
+    if (type == WMUnderLineViewTypeWithRightImage) {
+        CGFloat rightImageViewX = textFieldX + textFieldW - 20;
+        CGFloat rightImageViewW = 16;
+        CGFloat rightImageViewY = 4;
+        CGFloat rightImageViewH = 11;
+        self.rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightImageViewX, rightImageViewY, rightImageViewW, rightImageViewH)];
+        [self addSubview:self.rightImageView];
     }
     
-    CGFloat w = Screen_Width - imageViewX*2;
+//    CGFloat rightX = CGRectGetMaxX(self.textField.frame)+5;
+//    CGFloat rightY = imageViewY;
+//    CGFloat rightH =44;
+//    if(type != WMUnderLineViewTypeNormal) {
+//        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(rightX, rightY, rightW-5, rightH)];
+//        self.rightButton.backgroundColor = [UIColor redColor];
+//        [self addSubview:self.rightButton];
+//    }
+    
+    CGFloat w = 300;
     CGFloat x = imageViewX;
-    CGFloat y = 49;
+    CGFloat y = 29;
     CGFloat h = 1;
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-    line.backgroundColor = [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1];
+    line.backgroundColor = [WMUIUtility color:@"0xcdcdcd"];
     [self addSubview:line];
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

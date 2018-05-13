@@ -10,12 +10,14 @@
 
 typedef enum : NSUInteger {
     WMUnderLineViewTypeNormal,
+    WMUnderLineViewTypeWithRightImage,
     WMUnderLineViewTypeWithRightButton,
 } WMUnderLineViewType;
 
 @interface WMUnderLineView : UIView
 @property (nonatomic,strong) UIImageView *imageView;
 @property (nonatomic,strong) UITextField *textField;
+@property (nonatomic,strong) UIImageView *rightImageView;
 @property (nonatomic,strong) UIButton *rightButton;
 - (instancetype)initWithFrame:(CGRect)frame;
 - (instancetype)initWithFrame:(CGRect)frame withType:(WMUnderLineViewType)type;

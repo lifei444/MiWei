@@ -13,28 +13,66 @@
 #import "WMUnderLineView.h"
 #import "WMMainTabbarViewController.h"
 #import "AppDelegate.h"
+#import "WMUIUtility.h"
+
+#define TitleViewHeight 64
+#define GapBetweenTitleAndLogo 38
+#define LogoImageHeight 62
+#define GapBetweenLogoAndPhone 100
+#define PhoneViewHeight 30
+#define PasswordViewHeight 30
+#define GapBetweenPasswordAndLoginButton 49
+#define LoginButtonHeight 44
+#define GapBetweenLoginButtonAndRegister 22
+#define RegisterButtonHeight 13
+#define GapBetweenRegisterAndForget 140
+#define ForgetButtonHeight 15
+#define GapBelowForget 30
+
+#define LogoImageY TitleViewHeight + GapBetweenTitleAndLogo
+#define PhoneViewY LogoImageY + LogoImageHeight + GapBetweenLogoAndPhone
+#define PasswordViewY PhoneViewY + PhoneViewHeight + 30
+
+#define LogoImageWidth 151
+#define LogoImageX (Screen_Width - LogoImageWidth)/2
 
 @interface WMLoginViewController ()
-@property (nonatomic,strong) UIImageView *iconImageView;
+@property (nonatomic,strong) UILabel *titleLable;
+@property (nonatomic,strong) UIImageView *logoImageView;
 @property (nonatomic,strong) WMUnderLineView *phoneView;
-@property (nonatomic,strong) WMUnderLineView *passView;
+@property (nonatomic,strong) WMUnderLineView *passwordView;
 @property (nonatomic,strong) UIButton *weChatButton;
 @property (nonatomic,strong) UIButton *loginButton;
 @property (nonatomic,strong) UIButton *registerButton;
-@property (nonatomic,strong) UIButton *fegetButton;
+@property (nonatomic,strong) UIButton *forgetButton;
 @end
 
 @implementation WMLoginViewController
 
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"登录";
+    [self.view addSubview:self.titleLable];
+    [self.view addSubview:self.logoImageView];
+    [self.view addSubview:self.phoneView];
+    [self.view addSubview:self.passwordView];
     [self addsubViews];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+}
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
+}
+
+#pragma mark - Target action
 - (void)weChat {
     NSLog(@"%s",__func__);
 }
@@ -55,61 +93,19 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = nil;
-}
-
+#pragma mark - Inner methods
 - (void)addsubViews {
     
-    CGFloat iconImageViewW = 150;
-    CGFloat iconImageViewX = (Screen_Width -iconImageViewW)/2 ;
-    CGFloat iconImageViewY = 120+30;
-    CGFloat iconImageViewH = 70;
-    self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(iconImageViewX, iconImageViewY, iconImageViewW, iconImageViewH)];
-    self.iconImageView.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:self.iconImageView];
     
     
-    CGFloat phoneViewW = Screen_Width;
-    CGFloat phoneViewX = 0 ;
-    CGFloat phoneViewY = CGRectGetMaxY(self.iconImageView.frame)+30;
-    CGFloat phoneViewH = 50;
-    self.phoneView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(phoneViewX, phoneViewY, phoneViewW, phoneViewH)];
-    UIImageView *phone = [[UIImageView alloc] initWithFrame:CGRectMake(0, 8, 20, 28)];
-    phone.backgroundColor = [UIColor redColor];
-    self.phoneView.imageView.backgroundColor = [UIColor redColor];
-    self.phoneView.textField.placeholder = @"请输入手机号";
-    self.phoneView.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.phoneView.textField.adjustsFontSizeToFitWidth = YES;
-    [self.view addSubview:self.phoneView];
-    
-    CGFloat passViewW = Screen_Width;
-    CGFloat passViewX = 0 ;
-    CGFloat passViewY = CGRectGetMaxY(self.phoneView.frame)+30;
-    CGFloat passViewH = 50;
-    self.passView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(passViewX, passViewY, passViewW, passViewH)];
-    self.passView.imageView.backgroundColor = [UIColor redColor];
-    self.passView.textField.placeholder = @"请输入密码";
-    self.passView.textField.leftViewMode = UITextFieldViewModeAlways;
-    self.passView.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.passView.textField.adjustsFontSizeToFitWidth = YES;
-    [self.view addSubview:self.passView];
     
     CGFloat weChatButtonW = 80;
-    CGFloat weChatButtonX = CGRectGetMaxX(self.passView.frame)-weChatButtonW-35;
-    CGFloat weChatButtonY = CGRectGetMaxY(self.passView.frame)+8;
+    CGFloat weChatButtonX = CGRectGetMaxX(self.passwordView.frame)-weChatButtonW-35;
+    CGFloat weChatButtonY = CGRectGetMaxY(self.passwordView.frame)+8;
     CGFloat weChatButtonH = 35;
     self.weChatButton = [[UIButton alloc] initWithFrame:CGRectMake(weChatButtonX, weChatButtonY, weChatButtonW, weChatButtonH)];
     [self.weChatButton setTitle:@"微信登录" forState:UIControlStateNormal];
-    self.weChatButton.backgroundColor = [UIColor greenColor];
+    self.weChatButton.imageView.image = [UIImage imageNamed:@"login_wechat"];
     [self.weChatButton addTarget:self action:@selector(weChat) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.weChatButton];
     
@@ -134,30 +130,61 @@
     [self.view addSubview:self.registerButton];
     
     
-    CGFloat fegetButtonW = Screen_Width - 30*2;
-    CGFloat fegetButtonX = 30;
-    CGFloat fegetButtonH = 44;
-    CGFloat fegetButtonY = Screen_Height - Bottom_height - fegetButtonH - 20;
-    self.fegetButton = [[UIButton alloc] initWithFrame:CGRectMake(fegetButtonX, fegetButtonY, fegetButtonW, fegetButtonH)];
-    [self.fegetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
-    self.fegetButton.backgroundColor = [UIColor greenColor];
-    [self.fegetButton addTarget:self action:@selector(doForgetPass) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.fegetButton];
+    CGFloat forgetButtonW = Screen_Width - 30*2;
+    CGFloat forgetButtonX = 30;
+    CGFloat forgetButtonH = 44;
+    CGFloat forgetButtonY = Screen_Height - Bottom_height - forgetButtonH - 20;
+    self.forgetButton = [[UIButton alloc] initWithFrame:CGRectMake(forgetButtonX, forgetButtonY, forgetButtonW, forgetButtonH)];
+    [self.forgetButton setTitle:@"忘记密码" forState:UIControlStateNormal];
+    self.forgetButton.backgroundColor = [UIColor greenColor];
+    [self.forgetButton addTarget:self action:@selector(doForgetPass) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.forgetButton];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Getters and setters
+- (UILabel *)titleLable {
+    if (!_titleLable) {
+        _titleLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, Screen_Width, 17)];
+        _titleLable.text = @"登录";
+        _titleLable.textColor = [WMUIUtility color:@"0x444444"];
+        _titleLable.font = [UIFont systemFontOfSize:17];
+        _titleLable.textAlignment = NSTextAlignmentCenter;
+    }
+    return _titleLable;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIImageView *)logoImageView {
+    if (!_logoImageView) {
+        _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(LogoImageX, LogoImageY, LogoImageWidth, LogoImageHeight)];
+        _logoImageView.image = [UIImage imageNamed:@"login_logo"];
+    }
+    return _logoImageView;
 }
-*/
+
+- (WMUnderLineView *)phoneView {
+    if (!_phoneView) {
+        _phoneView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(0, PhoneViewY, Screen_Width, PhoneViewHeight) withType:WMUnderLineViewTypeNormal];
+        _phoneView.imageView.image = [UIImage imageNamed:@"login_phone"];
+//        _phoneView.rightImageView.image = [UIImage imageNamed:@"login_cancel"];
+        _phoneView.textField.placeholder = @"输入手机号";
+        _phoneView.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _phoneView.textField.adjustsFontSizeToFitWidth = YES;
+    }
+    return _phoneView;
+}
+
+- (WMUnderLineView *)passwordView {
+    if (!_passwordView) {
+        _passwordView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(0, PasswordViewY, Screen_Width, PasswordViewHeight) withType:WMUnderLineViewTypeNormal];
+        _passwordView.imageView.image = [UIImage imageNamed:@"login_password"];
+//        _passwordView.rightImageView.image = [UIImage imageNamed:@"login_eye"];
+        _passwordView.textField.placeholder = @"输入密码";
+        _passwordView.textField.leftViewMode = UITextFieldViewModeAlways;
+        _passwordView.textField.secureTextEntry = YES;
+        _passwordView.textField.clearButtonMode = UITextFieldViewModeNever;
+        _passwordView.textField.adjustsFontSizeToFitWidth = YES;
+    }
+    return _passwordView;
+}
 
 @end
