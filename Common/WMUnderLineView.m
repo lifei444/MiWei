@@ -33,14 +33,16 @@
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
     [self addSubview:self.imageView];
     
-//    CGFloat rightW = type == WMUnderLineViewTypeNormal ? 0 : 80;
-    
     CGFloat textFieldX = CGRectGetMaxX(self.imageView.frame) + 15;
-    CGFloat textFieldW = Screen_Width - textFieldX - 30;
+    CGFloat textFieldW = Screen_Width - textFieldX - 40;
+    if (type == WMUnderLineViewTypeWithRightButton) {
+        textFieldW -= 80;
+    }
     CGFloat textFieldY = 3;
     CGFloat textFieldH = 15;
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, textFieldY, textFieldW, textFieldH)];
-    
+    self.textField.textColor = [WMUIUtility color:@"0x444444"];
+    self.textField.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
     [self addSubview:self.textField];
     
     if (type == WMUnderLineViewTypeWithRightImage) {
@@ -52,14 +54,13 @@
         [self addSubview:self.rightImageView];
     }
     
-//    CGFloat rightX = CGRectGetMaxX(self.textField.frame)+5;
-//    CGFloat rightY = imageViewY;
-//    CGFloat rightH =44;
-//    if(type != WMUnderLineViewTypeNormal) {
-//        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(rightX, rightY, rightW-5, rightH)];
-//        self.rightButton.backgroundColor = [UIColor redColor];
-//        [self addSubview:self.rightButton];
-//    }
+    if(type == WMUnderLineViewTypeWithRightButton) {
+        CGFloat rightX = 260;
+        CGFloat rightY = -4;
+        CGFloat rightH = 30;
+        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(rightX, rightY, 80, rightH)];
+        [self addSubview:self.rightButton];
+    }
     
     CGFloat w = 300;
     CGFloat x = imageViewX;

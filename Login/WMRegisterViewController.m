@@ -9,39 +9,79 @@
 #import "WMRegisterViewController.h"
 #import "WMUnderLineView.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 #define WaitSeconds 3
 @interface WMRegisterViewController ()
 @property (nonatomic,strong) WMUnderLineView *phoneView;
-@property (nonatomic,strong) WMUnderLineView *verfyView;
+@property (nonatomic,strong) WMUnderLineView *verifyView;
 @property (nonatomic,strong) WMUnderLineView *passView;
-@property (nonatomic,strong) WMUnderLineView *confimView;
+@property (nonatomic,strong) WMUnderLineView *confirmView;
 @property (nonatomic,strong) UIButton *registerButton;
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,assign) int count;
 @end
 
-@implementation WMRegisterViewController
+#define ViewX 0
+#define ViewWidth Screen_Width
 
+#define PhoneY 40 + Navi_Height
+#define ViewHeight 30
+#define Gap 30
+#define VerifyY PhoneY + ViewHeight + Gap
+#define PassY VerifyY + ViewHeight + Gap
+#define ConfirmY PassY + ViewHeight + Gap
+#define Gap2 87
+#define RegisterY ConfirmY + ViewHeight + Gap2
+#define RegisterHeight 44
+
+#define RegisterX 37
+#define RegisterW 300
+
+@implementation WMRegisterViewController
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"注册";
     self.count = WaitSeconds;
-    
-    [self loadSubViews];
+    [self.view addSubview:self.phoneView];
+    [self.view addSubview:self.verifyView];
+    [self.view addSubview:self.passView];
+    [self.view addSubview:self.confirmView];
+    [self.view addSubview:self.registerButton];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //left button
+    self.navigationItem.hidesBackButton = YES;
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"register_return"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemPressed:)];
+    [backButton setTintColor:[UIColor grayColor]];
+    self.navigationItem.leftBarButtonItem = backButton;
+    
+    //title
+    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:15];
+    NSDictionary *dic = @{NSFontAttributeName:font,
+                          NSForegroundColorAttributeName: [UIColor blackColor]};
+    self.navigationController.navigationBar.titleTextAttributes = dic;
+    
+    //去除导航栏下方的横线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+}
+
+#pragma mark - Target action
 - (void)registerAction {
     
 }
 
 - (void)countDown {
-    if(self.count > 0) {
-        self.count --;
-        [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)",self.count] forState:UIControlStateNormal];
-    }else {
+    if (self.count > 0) {
+        [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)", self.count--] forState:UIControlStateNormal];
+    } else {
         if([self.timer isValid]) {
             [self.timer invalidate];
             self.timer = nil;
@@ -52,70 +92,70 @@
 }
 
 - (void)startTimer {
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+    if (!self.timer) {
+        [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)", self.count--] forState:UIControlStateNormal];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+    }
 }
 
-- (void)loadSubViews {
-    CGFloat phoneX = 0;
-    CGFloat phoneY = 30 + Navi_Height;
-    CGFloat phoneW = Screen_Width;
-    CGFloat phoneH = 50;
-    self.phoneView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(phoneX, phoneY, phoneW, phoneH) withType:WMUnderLineViewTypeWithRightButton];
-    self.phoneView.textField.placeholder = @"输入手机号";
-    [self.phoneView.rightButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    self.phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.phoneView.rightButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.phoneView];
-    
-    CGFloat verfyX = 0;
-    CGFloat verfyY = CGRectGetMaxY(self.phoneView.frame) + 20;
-    CGFloat verfyW = Screen_Width;
-    CGFloat verfyH = 50;
-    self.verfyView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(verfyX, verfyY, verfyW, verfyH)];
-    self.verfyView.textField.placeholder = @"输入验证码";
-    [self.view addSubview:self.verfyView];
-    
-    CGFloat passX = 0;
-    CGFloat passY = CGRectGetMaxY(self.verfyView.frame) + 20;
-    CGFloat passW = Screen_Width;
-    CGFloat passH = 50;
-    self.passView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(passX, passY, passW, passH)];
-    self.passView.textField.placeholder = @"输入密码";
-    [self.view addSubview:self.passView];
-    
-    CGFloat confimX = 0;
-    CGFloat confimY = CGRectGetMaxY(self.passView.frame) + 20;
-    CGFloat confimW = Screen_Width;
-    CGFloat confimH = 50;
-    self.confimView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(confimX, confimY, confimW, confimH)];
-    self.confimView.textField.placeholder = @"确认密码";
-    [self.view addSubview:self.confimView];
-    
-    
-    CGFloat registerX = 0;
-    CGFloat registerY = CGRectGetMaxY(self.confimView.frame) + 20;
-    CGFloat registerW = Screen_Width;
-    CGFloat registerH = 50;
-    self.registerButton = [[UIButton alloc] initWithFrame:CGRectMake(registerX, registerY, registerW, registerH)];
-    self.registerButton.backgroundColor = [UIColor redColor];
-    [self.registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [self.view addSubview:self.registerButton];
+- (void)leftBarButtonItemPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Getters and setters
+- (WMUnderLineView *)phoneView {
+    if (!_phoneView) {
+        _phoneView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, PhoneY, ViewWidth, ViewHeight) withType:WMUnderLineViewTypeWithRightButton];
+        _phoneView.imageView.image = [UIImage imageNamed:@"register_phone"];
+        _phoneView.textField.placeholder = @"输入手机号";
+        [_phoneView.rightButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_phoneView.rightButton setTitleColor:[WMUIUtility color:@"0x999999"] forState:UIControlStateNormal];
+        _phoneView.rightButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_phoneView.rightButton addTarget:self action:@selector(startTimer) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _phoneView;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (WMUnderLineView *)verifyView {
+    if (!_verifyView) {
+        _verifyView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, VerifyY, ViewWidth, ViewHeight)];
+        _verifyView.imageView.image = [UIImage imageNamed:@"register_verify"];
+        _verifyView.textField.placeholder = @"输入验证码";
+    }
+    return _verifyView;
 }
-*/
+
+- (WMUnderLineView *)passView {
+    if (!_passView) {
+        _passView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, PassY, ViewWidth, ViewHeight)];
+        _passView.imageView.image = [UIImage imageNamed:@"register_password"];
+        _passView.textField.placeholder = @"输入密码";
+        _passView.textField.secureTextEntry = YES;
+    }
+    return _passView;
+}
+
+- (WMUnderLineView *)confirmView {
+    if (!_confirmView) {
+        _confirmView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, ConfirmY, ViewWidth, ViewHeight)];
+        _confirmView.imageView.image = [UIImage imageNamed:@"register_password"];
+        _confirmView.textField.placeholder = @"确认密码";
+        _confirmView.textField.secureTextEntry = YES;
+    }
+    return _confirmView;
+}
+
+- (UIButton *)registerButton {
+    if (!_registerButton) {
+        _registerButton = [[UIButton alloc] initWithFrame:CGRectMake(RegisterX, RegisterY, RegisterW, RegisterHeight)];
+        _registerButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
+        _registerButton.titleLabel.textColor = [WMUIUtility color:@"0xffffff"];
+        [_registerButton.layer setCornerRadius:4];
+        _registerButton.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
+        [_registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
+        [_registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    }
+    return _registerButton;
+}
 
 @end

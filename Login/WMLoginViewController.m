@@ -74,6 +74,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
 }
@@ -143,7 +144,7 @@
         _passwordView.imageView.image = [UIImage imageNamed:@"login_password"];
 //        _passwordView.rightImageView.image = [UIImage imageNamed:@"login_eye"];
         _passwordView.textField.placeholder = @"输入密码";
-        _passwordView.textField.leftViewMode = UITextFieldViewModeAlways;
+//        _passwordView.textField.leftViewMode = UITextFieldViewModeAlways;
         _passwordView.textField.secureTextEntry = YES;
         _passwordView.textField.clearButtonMode = UITextFieldViewModeNever;
         _passwordView.textField.adjustsFontSizeToFitWidth = YES;
@@ -179,7 +180,7 @@
         _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(LoginButtonX, LoginButtonY, LoginButtonW, LoginButtonHeight)];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
         _loginButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
-        _loginButton.titleLabel.textColor = [WMUIUtility color:@"ffffff"];
+        _loginButton.titleLabel.textColor = [WMUIUtility color:@"0xffffff"];
         [_loginButton.layer setCornerRadius:4];
         _loginButton.titleLabel.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
         [_loginButton addTarget:self action:@selector(doLogin) forControlEvents:UIControlEventTouchUpInside];
