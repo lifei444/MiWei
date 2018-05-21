@@ -11,6 +11,7 @@
 #import "WMDeviceViewController.h"
 #import "WMMessageViewController.h"
 #import "WMMeViewController.h"
+#import "WMUIUtility.h"
 
 @interface WMMainTabbarViewController ()
 
@@ -20,45 +21,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    [self setViewController];
+    self.tabBar.tintColor = [WMUIUtility color:@"0x23938b"];
+    [self setViewControllers];
 }
 
-- (void)setViewController {
+- (void)setViewControllers {
     WMDeviceViewController *setVC = [[WMDeviceViewController alloc] init];
-    WMNavigationViewController *setNav = [self getNaviBy:setVC tiltle:@"设备" image:nil selectImage:nil];
+    WMNavigationViewController *setNav = [self getNaviBy:setVC title:@"设备" image:[UIImage imageNamed:@"maintab_device"] selectImage:[UIImage imageNamed:@"maintab_device_select"]];
     
     WMMessageViewController *weaVC = [[WMMessageViewController alloc] init];
-    WMNavigationViewController *weaNav = [self getNaviBy:weaVC tiltle:@"消息" image:nil selectImage:nil];
+    WMNavigationViewController *weaNav = [self getNaviBy:weaVC title:@"消息" image:[UIImage imageNamed:@"maintab_message"] selectImage:[UIImage imageNamed:@"maintab_message_select"]];
     
     WMMeViewController *meVC = [[WMMeViewController alloc] init];
-    WMNavigationViewController *meNav = [self getNaviBy:meVC tiltle:@"个人" image:nil selectImage:nil];
+    WMNavigationViewController *meNav = [self getNaviBy:meVC title:@"个人" image:[UIImage imageNamed:@"maintab_profile"] selectImage:[UIImage imageNamed:@"maintab_profile_select"]];
     
     self.viewControllers = @[setNav,weaNav,meNav];
-    
 }
 
-- (WMNavigationViewController *)getNaviBy:(UIViewController *)vc tiltle:(NSString *)title image:(UIImage *)image selectImage:(UIImage *)selectImage{
+- (WMNavigationViewController *)getNaviBy:(UIViewController *)vc title:(NSString *)title image:(UIImage *)image selectImage:(UIImage *)selectImage{
     vc.tabBarItem.image = image;
     vc.tabBarItem.selectedImage = selectImage;
     WMNavigationViewController *nav = [[WMNavigationViewController alloc] initWithRootViewController:vc];
     return nav;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

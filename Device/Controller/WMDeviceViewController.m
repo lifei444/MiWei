@@ -24,7 +24,7 @@
     self = [super init];
     if (self) {
         self.title =@"设备";
-        self.navigationItem.title = @"设备中心";
+        self.navigationItem.title = @"设备列表";
     }
     return self;
 }
@@ -58,12 +58,12 @@
 
 - (void)setRightNavBar {
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"device_scan"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
 
-- (void)setting:(UIButton *)btn {
+- (void)scan:(UIButton *)btn {
     WMScanViewController *vc = [[WMScanViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }

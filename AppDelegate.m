@@ -19,7 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    BOOL isLogined = NO;
+    BOOL isLogined = YES;
     if(isLogined) {
         WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
         self.window.rootViewController = tabVC;
