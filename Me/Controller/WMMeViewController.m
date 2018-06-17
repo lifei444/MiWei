@@ -13,6 +13,7 @@
 #import "WMMeAddressViewController.h"
 #import "WMFeedbackViewController.h"
 #import "WMCommonDefine.h"
+#import "WMAlertManageViewController.h"
 
 #define kheight 269
 
@@ -51,6 +52,16 @@
     self.tableView.contentInset = UIEdgeInsetsMake(-35,0,0,0);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
@@ -62,7 +73,6 @@
     }else {
         return 1;
     }
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,7 +113,8 @@
         } else if(indexPath.row == 1) {
             NSLog(@"订单中心");
         } else if(indexPath.row == 2) {
-            NSLog(@"报警管理");
+            WMAlertManageViewController *vc = [[WMAlertManageViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         } else if(indexPath.row == 3) {
             WMFeedbackViewController *vc = [[WMFeedbackViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];

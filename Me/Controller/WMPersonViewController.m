@@ -10,6 +10,7 @@
 #import "WMMeAddressViewController.h"
 #import "WMMeNameViewController.h"
 #import "WMMeIconViewController.h"
+#import "WMUIUtility.h"
 
 @interface WMPersonViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
@@ -17,13 +18,14 @@
 
 @implementation WMPersonViewController
 
+#pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.title = @"个人资料";
     [self.view addSubview:self.tableView];
 }
 
+#pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 3;
 }
@@ -31,9 +33,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.textColor = [WMUIUtility color:@"0x444444"];
+    cell.textLabel.font = [UIFont systemFontOfSize:15];
     if(indexPath.row == 0) {
         cell.textLabel.text = @"头像";
-        cell.imageView.image = nil;
+//        cell.imageView.image = [UIImage imageNamed:@"person_portrait"];
     }else if(indexPath.row == 1) {
         cell.textLabel.text = @"昵称";
         cell.detailTextLabel.text= @"Megeid";
@@ -45,11 +49,12 @@
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 0) {
         return 80;
     }else {
-        return 44;
+        return 50;
     }
 }
 
@@ -66,6 +71,7 @@
     }
 }
 
+#pragma mark - Getters and setters
 - (UITableView *)tableView {
     if(!_tableView) {
         _tableView  = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
@@ -76,19 +82,6 @@
     return _tableView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -42,7 +42,6 @@
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"注册";
     self.count = WaitSeconds;
     [self.view addSubview:self.phoneView];
@@ -54,18 +53,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    //left button
-    self.navigationItem.hidesBackButton = YES;
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"register_return"] style:UIBarButtonItemStyleDone target:self action:@selector(leftBarButtonItemPressed:)];
-    [backButton setTintColor:[UIColor grayColor]];
-    self.navigationItem.leftBarButtonItem = backButton;
-    
-    //title
-    UIFont *font = [UIFont fontWithName:@"Heiti SC" size:15];
-    NSDictionary *dic = @{NSFontAttributeName:font,
-                          NSForegroundColorAttributeName: [UIColor blackColor]};
-    self.navigationController.navigationBar.titleTextAttributes = dic;
     
     //去除导航栏下方的横线
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init]
@@ -96,10 +83,6 @@
         [self.phoneView.rightButton setTitle:[NSString stringWithFormat:@"重新发送(%d)", self.count--] forState:UIControlStateNormal];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     }
-}
-
-- (void)leftBarButtonItemPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Getters and setters

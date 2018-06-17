@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
-@interface WMRegisterViewController : UIViewController
+@interface WMRegisterViewController : WMViewController
 
 @end

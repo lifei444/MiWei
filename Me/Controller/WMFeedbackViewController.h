@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMViewController.h"
 
-@interface WMFeedbackViewController : UIViewController
+@interface WMFeedbackViewController : WMViewController
 
 @end
