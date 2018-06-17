@@ -89,7 +89,7 @@
     [self.backImageView addSubview:self.outerLabel];
 }
 
-+ (CGFloat)cellHegit {
++ (CGFloat)cellHeight {
     return cellH;
 }
 

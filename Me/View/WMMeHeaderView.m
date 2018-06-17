@@ -8,10 +8,13 @@
 
 #import "WMMeHeaderView.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
-#define kheight 300
+#define kheight 269
 
 @interface WMMeHeaderView()
+@property (nonatomic, strong) UIImageView *bgView;
+@property (nonatomic, strong) UILabel *titleLable;
 @end
 
 @implementation WMMeHeaderView
@@ -23,28 +26,70 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self) {
-        [self loadSubViews];
+        [self addSubview:self.bgView];
+        [self addSubview:self.titleLable];
+        [self addSubview:self.portraitImageView];
+        [self addSubview:self.nameLabel];
+        [self addSubview:self.addressLabel];
     }
     return self;
 }
 
-- (void)loadSubViews {
-    self.backgroundColor = [UIColor colorWithRed:34/255.0 green:154/255.0 blue:150/255.0 alpha:1];
-    self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake((Screen_Width-100)/2, 40, 100, 100)];
-    self.iconImageView.layer.cornerRadius = 50;
-    self.iconImageView.layer.masksToBounds = YES;
-    self.idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 160, Screen_Width, 44)];
-    self.idLabel.textAlignment = NSTextAlignmentCenter;
-    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, Screen_Width, 44)];
-    self.addressLabel.textAlignment = NSTextAlignmentCenter;
-    
-    [self addSubview:self.iconImageView];
-    [self addSubview:self.idLabel];
-    [self addSubview:self.addressLabel];
+#pragma mark - Getters and setters
+- (UIImageView *)bgView {
+    if (!_bgView) {
+        CGRect rect = CGRectMake(0, 0, Screen_Width, kheight);
+        _bgView = [[UIImageView alloc] initWithFrame:rect];
+        _bgView.image = [UIImage imageNamed:@"me_bg"];
+    }
+    return _bgView;
 }
 
-+ (CGFloat)height {
-    return kheight;
+- (UILabel *)titleLable {
+    if (!_titleLable) {
+        CGRect rect = CGRectMake(0, 40, Screen_Width, 17);
+        _titleLable = [[UILabel alloc] initWithFrame:rect];
+        _titleLable.textAlignment = NSTextAlignmentCenter;
+        _titleLable.textColor = [WMUIUtility color:@"0xffffff"];
+        _titleLable.font = [UIFont systemFontOfSize:17];
+        _titleLable.text = @"个人设置";
+    }
+    return _titleLable;
+}
+
+- (UIImageView *)portraitImageView {
+    if (!_portraitImageView) {
+        CGRect rect = CGRectMake((Screen_Width-110)/2, 80, 110, 110);
+        _portraitImageView = [[UIImageView alloc] initWithFrame:rect];
+        _portraitImageView.layer.cornerRadius = 50;
+        _portraitImageView.layer.masksToBounds = YES;
+        _portraitImageView.image = [UIImage imageNamed:@"me_portrait"];
+    }
+    return _portraitImageView;
+}
+
+- (UILabel *)nameLabel {
+    if (!_nameLabel) {
+        CGRect rect = CGRectMake(0, 80+110+12, Screen_Width, 16);
+        _nameLabel = [[UILabel alloc] initWithFrame:rect];
+        _nameLabel.textAlignment = NSTextAlignmentCenter;
+        _nameLabel.textColor = [WMUIUtility color:@"0xffffff"];
+        _nameLabel.font = [UIFont systemFontOfSize:16];
+        _nameLabel.text = @"Mageidd";
+    }
+    return _nameLabel;
+}
+
+- (UILabel *)addressLabel {
+    if (!_addressLabel) {
+        CGRect rect = CGRectMake(0, 80+110+12+16+12, Screen_Width, 15);
+        _addressLabel = [[UILabel alloc] initWithFrame:rect];
+        _addressLabel.textAlignment = NSTextAlignmentCenter;
+        _addressLabel.textColor = [WMUIUtility color:@"0xffffff"];
+        _addressLabel.font = [UIFont systemFontOfSize:15];
+        _addressLabel.text = @"北京市海淀区知春路翎行大厦2号楼9层";
+    }
+    return _addressLabel;
 }
 
 @end

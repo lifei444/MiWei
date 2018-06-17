@@ -10,10 +10,7 @@
 
 @interface WMMeHeaderView : UIView
 + (instancetype)headerView;
-
-@property (nonatomic,strong) UIImageView *iconImageView;
-@property (nonatomic,strong) UILabel *idLabel;
-@property (nonatomic,strong) UILabel *addressLabel;
-
-+ (CGFloat)height;
+@property (nonatomic, strong) UIImageView *portraitImageView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *addressLabel;
 @end

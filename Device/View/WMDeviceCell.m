@@ -100,7 +100,7 @@
     [self.contentView addSubview:self.resultLabel];
 }
 
-+ (CGFloat)cellHegit {
++ (CGFloat)cellHeight {
     return 132;
 }
 

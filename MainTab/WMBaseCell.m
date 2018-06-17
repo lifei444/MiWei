@@ -31,9 +31,9 @@
     NSLog(@"%s 子类必须实现此方法",__func__);
 }
 
-+ (CGFloat)cellHegit {
++ (CGFloat)cellHeight {
     NSLog(@"%s 子类必须实现此方法",__func__);
-    return 44;
+    return 50;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

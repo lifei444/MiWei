@@ -1,5 +1,5 @@
 //
-//  WMPersionViewController.h
+//  WMPersonViewController.h
 //  WeiMi
 //
 //  Created by Sin on 2018/4/11.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WMPersionViewController : UIViewController
+@interface WMPersonViewController : UIViewController
 
 @end

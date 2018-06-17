@@ -12,5 +12,5 @@
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 - (void)loadSubViews;
 - (void)setDataModel:(id)model;
-+ (CGFloat)cellHegit;
++ (CGFloat)cellHeight;
 @end

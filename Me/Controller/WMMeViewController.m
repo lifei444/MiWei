@@ -9,14 +9,19 @@
 #import "WMMeViewController.h"
 #import "WMMeCell.h"
 #import "WMMeHeaderView.h"
-#import "WMPersionViewController.h"
+#import "WMPersonViewController.h"
 #import "WMMeAddressViewController.h"
 #import "WMFeedbackViewController.h"
+#import "WMCommonDefine.h"
+
+#define kheight 269
 
 @interface WMMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *titles;
 @property (nonatomic,strong) NSArray *imageNames;
+@property (nonatomic,strong) WMMeHeaderView *headerView;
+@property (nonatomic, strong) UIImageView *settingImageView;
 @end
 
 @implementation WMMeViewController
@@ -34,18 +39,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.view addSubview:self.headerView];
+    [self.view addSubview:self.settingImageView];
     [self.view addSubview:self.tableView];
     self.titles = @[@"修改密码",@"订单中心",@"报警管理",@"意见反馈"];
-    
-    [self setRightNavBar];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:YES];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.tableView.contentInset = UIEdgeInsetsMake(-35,0,0,0);
 }
 
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }
@@ -61,13 +67,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     WMMeCell *cell = [WMMeCell cellWithTableView:tableView];
-    cell.iconImageView.backgroundColor = [UIColor redColor];
     if(indexPath.section == 0) {
         cell.label.text = self.titles[indexPath.row];
+        switch (indexPath.row) {
+            case 0:
+                cell.iconImageView.image = [UIImage imageNamed:@"me_password"];
+                break;
+            case 1:
+                cell.iconImageView.image = [UIImage imageNamed:@"me_order"];
+                break;
+            case 2:
+                cell.iconImageView.image = [UIImage imageNamed:@"me_alert"];
+                break;
+            case 3:
+                cell.iconImageView.image = [UIImage imageNamed:@"me_response"];
+                break;
+            default:
+                break;
+        }
     }else if(indexPath.section == 1) {
-        cell.label.text = @"关于微米";
+        cell.label.text = @"关于米微";
+        cell.iconImageView.image = [UIImage imageNamed:@"me_about"];
     }else {
         cell.label.text = @"退出";
+        cell.iconImageView.image = [UIImage imageNamed:@"me_exit"];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -77,72 +100,59 @@
     if(indexPath.section == 0) {
         if(indexPath.row == 0) {
             NSLog(@"修改密码");
-        }else if(indexPath.row == 1) {
+        } else if(indexPath.row == 1) {
             NSLog(@"订单中心");
-        }else if(indexPath.row == 2) {
+        } else if(indexPath.row == 2) {
             NSLog(@"报警管理");
-        }else {
+        } else if(indexPath.row == 3) {
             WMFeedbackViewController *vc = [[WMFeedbackViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
-    }else if(indexPath.section == 1){
+    } else if(indexPath.section == 1) {
         NSLog(@"关于微米");
-    }else {
+    } else {
         NSLog(@"退出");
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if(section == 0) {
-        return [WMMeHeaderView height];
-    }else {
-        return 8;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 1;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if(section == 0) {
-        WMMeHeaderView *view = [WMMeHeaderView headerView];
-        view.backgroundColor = [UIColor greenColor];
-        view.iconImageView.backgroundColor = [UIColor redColor];
-        view.idLabel.text = @"测试账号";
-        view.addressLabel.text = @"地址";
-        return view;
-    }else {
-        return [UIView new];
-    }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [UIView new];
-}
-
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [WMMeCell cellHegit];
+    return [WMMeCell cellHeight];
 }
 
-- (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
-- (void)setting:(UIButton *)btn {
-    WMPersionViewController *vc = [[WMPersionViewController alloc] init];
+#pragma mark - Target action
+- (void)setting {
+    WMPersonViewController *vc = [[WMPersonViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - Getters and setters
+- (WMMeHeaderView *)headerView {
+    if (!_headerView) {
+        _headerView = [WMMeHeaderView headerView];
+    }
+    return _headerView;
+}
+
+- (UIImageView *)settingImageView {
+    if (!_settingImageView) {
+        CGRect rect = CGRectMake(Screen_Width-15-20, 37, 20, 19);
+        _settingImageView = [[UIImageView alloc] initWithFrame:rect];
+        _settingImageView.image = [UIImage imageNamed:@"me_setting"];
+        _settingImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setting)];
+        [_settingImageView addGestureRecognizer:recognizer];
+    }
+    return _settingImageView;
 }
 
 - (UITableView *)tableView {
     if(!_tableView) {
-        _tableView  = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, kheight, Screen_Width, Screen_Height - kheight) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.tableFooterView = [UIView new];
+        _tableView.sectionHeaderHeight = 0;
+        _tableView.sectionFooterHeight = 8;
     }
     return _tableView;
 }

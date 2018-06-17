@@ -1,21 +1,21 @@
 //
-//  WMPersionViewController.m
+//  WMPersonViewController.m
 //  WeiMi
 //
 //  Created by Sin on 2018/4/11.
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMPersionViewController.h"
+#import "WMPersonViewController.h"
 #import "WMMeAddressViewController.h"
 #import "WMMeNameViewController.h"
 #import "WMMeIconViewController.h"
 
-@interface WMPersionViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WMPersonViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
 @end
 
-@implementation WMPersionViewController
+@implementation WMPersonViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

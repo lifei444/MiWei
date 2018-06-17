@@ -43,7 +43,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [WMMessageCell cellHegit];
+    return [WMMessageCell cellHeight];
 }
 
 - (void)setRightNavBar {

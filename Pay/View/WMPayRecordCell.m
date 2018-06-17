@@ -70,7 +70,7 @@
     
 }
 
-+ (CGFloat)cellHegit {
++ (CGFloat)cellHeight {
     return 88;
 }
 
