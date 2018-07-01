@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WMBaseCell : UITableViewCell
+@interface WMBaseTableCell : UITableViewCell
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 - (void)loadSubViews;
 - (void)setDataModel:(id)model;

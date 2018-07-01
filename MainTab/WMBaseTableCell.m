@@ -6,11 +6,11 @@
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMBaseCell.h"
+#import "WMBaseTableCell.h"
 
-@implementation WMBaseCell
+@implementation WMBaseTableCell
 + (instancetype)cellWithTableView:(UITableView *)tableView {
-    WMBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class])];
+    WMBaseTableCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class])];
     if(!cell) {
         cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([self class])];
     }

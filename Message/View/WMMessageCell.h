@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMBaseCell.h"
+#import "WMBaseTableCell.h"
 
-@interface WMMessageCell : WMBaseCell
+@interface WMMessageCell : WMBaseTableCell
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @end

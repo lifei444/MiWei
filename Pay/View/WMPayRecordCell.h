@@ -6,8 +6,8 @@
 //  Copyright © 2018年 Sin. All rights reserved.
 //
 
-#import "WMBaseCell.h"
+#import "WMBaseTableCell.h"
 
-@interface WMPayRecordCell : WMBaseCell
+@interface WMPayRecordCell : WMBaseTableCell
 
 @end

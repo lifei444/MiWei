@@ -12,84 +12,124 @@
 #import "WMDeviceConfigViewController.h"
 #import "WMScanViewController.h"
 #import "WMDeviceInfoViewController.h"
+#import "WMDeviceModel.h"
+#import "WMDeviceCell.h"
+#import "WMUIUtility.h"
 
-@interface WMDeviceViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic,strong) UITableView *tableView;
+static NSString *deviceCellIdentifier = @"WMDeviceCell";
+
+#define SearchBarX                  8
+#define SearchBarY                  (20 + 44 + 7)
+#define SearchBarWidth              359
+#define SearchBarHeight             40
+
+#define GapYBetweenSearchAndContent 7
+#define CollectionX                 SearchBarX
+#define CollectionY                 (SearchBarY + SearchBarHeight + GapYBetweenSearchAndContent)
+#define CollectionWidth             SearchBarWidth
+#define CollectionHeight            600//TODO
+
+#define EdgeGap                     8
+#define CellWidth                   176
+#define CellHeight                  239
+
+#define GapXBetweenCell             7
+
+@interface WMDeviceViewController () <UISearchResultsUpdating>
+@property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) NSMutableArray <WMDeviceModel *> *modelArray;
 @end
 
 @implementation WMDeviceViewController
 
-- (instancetype)init
-{
-    self = [super init];
+#pragma mark - Life cycle
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
+    self = [super initWithCollectionViewLayout:layout];
     if (self) {
-        self.title =@"设备";
+        self.title = @"设备";
         self.navigationItem.title = @"设备列表";
+        self.view.backgroundColor = [WMUIUtility color:@"0xf6f6f6"];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.view addSubview:self.tableView];
+    
     [self setRightNavBar];
+    //TODO
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+//    self.searchController.dimsBackgroundDuringPresentation = false;
+    self.searchController.searchBar.frame = CGRectMake(SearchBarX, SearchBarY, SearchBarWidth, SearchBarHeight);
+    
+    
+    [self.view addSubview:self.searchController.searchBar];
+    
+    self.collectionView.frame = CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
+    [self.collectionView registerClass:[WMDeviceCell class] forCellWithReuseIdentifier:deviceCellIdentifier];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+#pragma mark - UICollectionViewDelegateFlowLayout
+//返回每个cell的大小
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(CellWidth, CellHeight);
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMDeviceCell *cell = [WMDeviceCell cellWithTableView:tableView];
-    [cell setDataModel:nil];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return GapXBetweenCell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [WMDeviceCell cellHeight];
+////设置每一个Cell的垂直和水平间距
+//-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+//    if (section % 2 == 0) {
+//        return UIEdgeInsetsMake(0, 0, 0, 0);
+//    } else {
+//        return UIEdgeInsetsMake(0, 0, 0, 0);
+//    }
+//}
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.modelArray.count;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMDeviceInfoViewController *vc = [[WMDeviceInfoViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    WMDeviceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:deviceCellIdentifier forIndexPath:indexPath];
+    if (!cell) {
+        cell = [[WMDeviceCell alloc] init];
+    }
+    [cell setDataModel:self.modelArray[indexPath.item]];
+    return (UICollectionViewCell *)cell;
 }
 
-- (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [btn setImage:[UIImage imageNamed:@"device_scan"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-}
-
+#pragma mark - Target action
 - (void)scan:(UIButton *)btn {
     WMScanViewController *vc = [[WMScanViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (UITableView *)tableView {
-    if(!_tableView) {
-        _tableView  = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+#pragma mark - private
+- (void)setRightNavBar {
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [btn setImage:[UIImage imageNamed:@"device_scan"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
+#pragma mark - Getters & setters
+- (NSMutableArray<WMDeviceModel *> *)modelArray {
+    if (!_modelArray) {
+        _modelArray = [[NSMutableArray alloc] init];
+        
+        //TODO delete
+        for (int i=0; i<10; i++) {
+            WMDeviceModel *model = [[WMDeviceModel alloc] init];
+            [_modelArray addObject:model];
+        }
     }
-    return _tableView;
+    return _modelArray;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

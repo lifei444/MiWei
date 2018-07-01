@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMBaseCell.h"
+#import "WMDeviceModel.h"
 
-@interface WMDeviceCell : WMBaseCell
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
+@interface WMDeviceCell : UICollectionViewCell
+- (void)setDataModel:(WMDeviceModel *)model;
 @end

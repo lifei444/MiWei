@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WMDeviceViewController : UIViewController
+@interface WMDeviceViewController : UICollectionViewController
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMBaseCell.h"
+#import "WMBaseTableCell.h"
 
-@interface WMMeCell : WMBaseCell
+@interface WMMeCell : WMBaseTableCell
 @property (nonatomic,strong) UIImageView *iconImageView;
 @property (nonatomic,strong) UILabel *label;
 @end
