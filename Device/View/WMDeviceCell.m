@@ -102,7 +102,7 @@
 }
 
 - (UILabel *)nameLabel {
-    if (!_nameLabel) {
+    if (!_nameLabel) { 
         _nameLabel = [self labelWithFrame:CGRectMake(NameX, NameY, Screen_Width, NameHeight)
                                      font:[UIFont boldSystemFontOfSize:15]
                                 textColor:[WMUIUtility color:@"0x444444"]];
