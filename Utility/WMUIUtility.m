@@ -50,8 +50,8 @@ static float autoSizeScaleY;
 }
 
 + (void)registerAutoSizeScale {
-    autoSizeScaleX = Screen_Width / 375;
-    autoSizeScaleY = Screen_Height / 667;
+    autoSizeScaleX = [UIScreen mainScreen].bounds.size.width / 375;
+    autoSizeScaleY = [UIScreen mainScreen].bounds.size.height / 667;
 }
 
 + (CGRect)WMCGRectMakeWithX:(CGFloat)x
