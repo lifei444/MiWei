@@ -8,6 +8,7 @@
 
 #import "WMMeNameViewController.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @interface WMMeNameViewController ()
 @property(nonatomic,strong) UILabel *nameLabel;
@@ -30,7 +31,7 @@
 
 - (UILabel *)nameLabel {
     if(!_nameLabel) {
-        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Navi_Height+ 20, 60 ,44)];
+        _nameLabel = [[UILabel alloc]initWithFrame:WM_CGRectMake(0, Navi_Height+ 20, 60 ,44)];
         _nameLabel.backgroundColor = [UIColor whiteColor];
         _nameLabel.text = @"昵称";
         _nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -40,7 +41,7 @@
 
 - (UITextField *)nameField {
     if(!_nameField) {
-        _nameField = [[UITextField alloc] initWithFrame:CGRectMake(60, Navi_Height+20, self.view.frame.size.width-60, 44)];
+        _nameField = [[UITextField alloc] initWithFrame:WM_CGRectMake(60, Navi_Height+20, self.view.frame.size.width-60, 44)];
         _nameField.backgroundColor = [UIColor whiteColor];
         _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
@@ -49,7 +50,7 @@
 
 - (UIButton *)confirmButton {
     if(!_confirmButton) {
-        _confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(20, Navi_Height+80, self.view.frame.size.width-40, 44)];
+        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, Navi_Height+80, self.view.frame.size.width-40, 44)];
         [_confirmButton setTitle:@"保存" forState:UIControlStateNormal];
         _confirmButton.backgroundColor = [UIColor greenColor];
         _confirmButton.layer.cornerRadius = 5;

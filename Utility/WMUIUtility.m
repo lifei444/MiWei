@@ -7,6 +7,10 @@
 //
 
 #import "WMUIUtility.h"
+#import "WMCommonDefine.h"
+
+static float autoSizeScaleX;
+static float autoSizeScaleY;
 
 @implementation WMUIUtility
 
@@ -43,6 +47,31 @@
                            green:((float)((rgbValue & 0xFF00) >> 8)) / 255.0
                             blue:((float)(rgbValue & 0xFF)) / 255.0
                            alpha:alphaValue];
+}
+
++ (void)registerAutoSizeScale {
+    autoSizeScaleX = Screen_Width / 375;
+    autoSizeScaleY = Screen_Height / 667;
+}
+
++ (CGRect)WMCGRectMakeWithX:(CGFloat)x
+                          y:(CGFloat)y
+                      width:(CGFloat)width
+                     height:(CGFloat)height {
+    CGRect result;
+    result.origin.x = x * autoSizeScaleX;
+    result.origin.y = y * autoSizeScaleY;
+    result.size.width = width * autoSizeScaleX;
+    result.size.height = height * autoSizeScaleY;
+    return result;
+}
+
++ (CGSize)WMCGSizeMakeWithWidth:(CGFloat)width
+                         height:(CGFloat)height {
+    CGSize result;
+    result.width = width * autoSizeScaleX;
+    result.height = height * autoSizeScaleY;
+    return result;
 }
 
 @end

@@ -20,10 +20,10 @@
 }
 
 - (void)loadSubViews {
-    self.iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 17, 16, 16)];
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(67, 4, 100, 42)];
+    self.iconImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(30, 17, 16, 16)];
+    self.label = [[UILabel alloc] initWithFrame:WM_CGRectMake(67, 4, 100, 42)];
     self.label.textColor = [WMUIUtility color:@"0x333333"];
-    self.detailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(346, 19, 6, 11)];
+    self.detailImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(346, 19, 6, 11)];
     self.detailImageView.image = [UIImage imageNamed:@"me_detail"];
     [self.contentView addSubview:self.iconImageView];
     [self.contentView addSubview:self.label];

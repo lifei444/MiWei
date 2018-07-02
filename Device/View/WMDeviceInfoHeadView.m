@@ -8,6 +8,7 @@
 
 #import "WMDeviceInfoHeadView.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 #define ViewHeight 280
 
@@ -28,7 +29,7 @@
 
 @implementation WMDeviceInfoHeadView
 + (instancetype)headView {
-    return [[self alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, ViewHeight)];
+    return [[self alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, ViewHeight)];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

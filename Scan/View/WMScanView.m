@@ -8,6 +8,7 @@
 
 #import "WMScanView.h"
 #import <AVFoundation/AVFoundation.h>
+#import "WMUIUtility.h"
 
 /** 扫描内容的Y值 */
 #define scanContent_Y self.frame.size.height * 0.24
@@ -56,7 +57,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat scanContentViewY = scanContent_Y;
     CGFloat scanContentViewW = self.frame.size.width - 2 * scanContent_X;
     CGFloat scanContentViewH = scanContentViewW;
-    self.scanContentView.frame = CGRectMake(scanContentViewX, scanContentViewY, scanContentViewW, scanContentViewH);
+    self.scanContentView.frame = WM_CGRectMake(scanContentViewX, scanContentViewY, scanContentViewW, scanContentViewH);
     self.scanContentView.layer.borderColor =
     [[UIColor colorWithRed:58 / 255.0 green:145 / 255.0 blue:243 / 255.0 alpha:1 / 1.0] colorWithAlphaComponent:0.6]
     .CGColor;
@@ -72,7 +73,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat top_ViewY = 0;
     CGFloat top_ViewW = self.frame.size.width;
     CGFloat top_ViewH = scanContentViewY;
-    top_View.frame = CGRectMake(top_ViewX, top_ViewY, top_ViewW, top_ViewH);
+    top_View.frame = WM_CGRectMake(top_ViewX, top_ViewY, top_ViewW, top_ViewH);
     top_View.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:scanBorderOutsideViewAlpha];
     [self addSubview:top_View];
     
@@ -82,7 +83,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat left_ViewY = scanContentViewY;
     CGFloat left_ViewW = scanContent_X;
     CGFloat left_ViewH = scanContentViewH;
-    left_View.frame = CGRectMake(left_ViewX, left_ViewY, left_ViewW, left_ViewH);
+    left_View.frame = WM_CGRectMake(left_ViewX, left_ViewY, left_ViewW, left_ViewH);
     left_View.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:scanBorderOutsideViewAlpha];
     [self addSubview:left_View];
     
@@ -92,7 +93,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat right_ViewY = scanContentViewY;
     CGFloat right_ViewW = scanContent_X;
     CGFloat right_ViewH = scanContentViewH;
-    right_View.frame = CGRectMake(right_ViewX, right_ViewY, right_ViewW, right_ViewH);
+    right_View.frame = WM_CGRectMake(right_ViewX, right_ViewY, right_ViewW, right_ViewH);
     right_View.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:scanBorderOutsideViewAlpha];
     [self addSubview:right_View];
     
@@ -102,7 +103,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat bottom_ViewY = CGRectGetMaxY(self.scanContentView.frame);
     CGFloat bottom_ViewW = self.frame.size.width;
     CGFloat bottom_ViewH = self.frame.size.height - bottom_ViewY;
-    bottom_View.frame = CGRectMake(bottom_ViewX, bottom_ViewY, bottom_ViewW, bottom_ViewH);
+    bottom_View.frame = WM_CGRectMake(bottom_ViewX, bottom_ViewY, bottom_ViewW, bottom_ViewH);
     bottom_View.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:scanBorderOutsideViewAlpha];
     [self addSubview:bottom_View];
     
@@ -113,7 +114,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat promptLabelY = scanContent_X * 0.5;
     CGFloat promptLabelW = self.frame.size.width;
     CGFloat promptLabelH = 25;
-    promptLabel.frame = CGRectMake(promptLabelX, promptLabelY, promptLabelW, promptLabelH);
+    promptLabel.frame = WM_CGRectMake(promptLabelX, promptLabelY, promptLabelW, promptLabelH);
     promptLabel.textAlignment = NSTextAlignmentCenter;
     promptLabel.font = [UIFont systemFontOfSize:14.0];
     promptLabel.textColor = [UIColor colorWithRed:147 / 255.0 green:147 / 255.0 blue:147 / 255.0 alpha:1 / 1.0];
@@ -126,7 +127,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat light_buttonY = CGRectGetMaxY(promptLabel.frame) + scanContent_X * 0.5;
     CGFloat light_buttonW = self.frame.size.width;
     CGFloat light_buttonH = 25;
-    light_button.frame = CGRectMake(light_buttonX, light_buttonY, light_buttonW, light_buttonH);
+    light_button.frame = WM_CGRectMake(light_buttonX, light_buttonY, light_buttonW, light_buttonH);
     [light_button setTitle:@"开启" forState:UIControlStateNormal];
     [light_button setTitle:@"关闭" forState:UIControlStateSelected];
     [light_button setTitleColor:promptLabel.textColor forState:(UIControlStateNormal)];
@@ -146,7 +147,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat left_imageViewY = CGRectGetMinY(self.scanContentView.frame) - left_image.size.width * 0.5 + margin;
     CGFloat left_imageViewW = left_image.size.width;
     CGFloat left_imageViewH = left_image.size.height;
-    left_imageView.frame = CGRectMake(left_imageViewX, left_imageViewY, left_imageViewW, left_imageViewH);
+    left_imageView.frame = WM_CGRectMake(left_imageViewX, left_imageViewY, left_imageViewW, left_imageViewH);
     left_imageView.image = left_image;
     [self.basedLayer addSublayer:left_imageView.layer];
     
@@ -157,7 +158,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat right_imageViewY = left_imageView.frame.origin.y;
     CGFloat right_imageViewW = left_image.size.width;
     CGFloat right_imageViewH = left_image.size.height;
-    right_imageView.frame = CGRectMake(right_imageViewX, right_imageViewY, right_imageViewW, right_imageViewH);
+    right_imageView.frame = WM_CGRectMake(right_imageViewX, right_imageViewY, right_imageViewW, right_imageViewH);
     right_imageView.image = right_image;
     [self.basedLayer addSublayer:right_imageView.layer];
     
@@ -170,7 +171,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat left_imageView_downW = left_image.size.width;
     CGFloat left_imageView_downH = left_image.size.height;
     left_imageView_down.frame =
-    CGRectMake(left_imageView_downX, left_imageView_downY, left_imageView_downW, left_imageView_downH);
+    WM_CGRectMake(left_imageView_downX, left_imageView_downY, left_imageView_downW, left_imageView_downH);
     left_imageView_down.image = left_image_down;
     [self.basedLayer addSublayer:left_imageView_down.layer];
     
@@ -182,7 +183,7 @@ static CGFloat const timer_animation_Duration = 0.05;
     CGFloat right_imageView_downW = left_image.size.width;
     CGFloat right_imageView_downH = left_image.size.height;
     right_imageView_down.frame =
-    CGRectMake(right_imageView_downX, right_imageView_downY, right_imageView_downW, right_imageView_downH);
+    WM_CGRectMake(right_imageView_downX, right_imageView_downY, right_imageView_downW, right_imageView_downH);
     right_imageView_down.image = right_image_down;
     [self.basedLayer addSublayer:right_imageView_down.layer];
 }
@@ -306,7 +307,7 @@ static CGFloat const timer_animation_Duration = 0.05;
         _animation_line = [[UIImageView alloc] init];
         _animation_line.image = [UIImage imageNamed:@"qrcode_scan_line"];
         _animation_line.frame =
-        CGRectMake(scanContent_X * 0.5, scanContent_Y, self.frame.size.width - scanContent_X, animation_line_H);
+        WM_CGRectMake(scanContent_X * 0.5, scanContent_Y, self.frame.size.width - scanContent_X, animation_line_H);
     }
     return _animation_line;
 }

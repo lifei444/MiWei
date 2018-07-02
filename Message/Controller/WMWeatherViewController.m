@@ -9,6 +9,7 @@
 #import "WMMessageViewController.h"
 #import "WMMessageCell.h"
 #import "WMCityViewController.h"
+#import "WMUIUtility.h"
 
 @interface WMMessageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
@@ -47,7 +48,7 @@
 }
 
 - (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 30, 30)];
     btn.backgroundColor = [UIColor redColor];
     [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];

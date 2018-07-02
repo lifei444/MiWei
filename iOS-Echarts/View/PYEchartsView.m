@@ -12,6 +12,7 @@
 #import "PYOption.h"
 #import "PYJsonUtil.h"
 #import "PYLoadingOption.h"
+#import "WMUIUtility.h"
 
 @interface PYEchartsView() {
     NSString *bundlePath;
@@ -155,7 +156,7 @@
         height = _divSize.height;
         width = _divSize.width;
     } else {
-        _divSize = CGSizeMake(width, height);
+        _divSize = WM_CGSizeMake(width, height);
     }
     NSString *divSizeCss = [NSString stringWithFormat:@"'height:%.0fpx;width:%.0fpx;'", height, width];
     NSString *js = [NSString stringWithFormat:@"%@(%@)", @"resizeDiv", divSizeCss];

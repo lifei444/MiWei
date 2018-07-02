@@ -30,7 +30,7 @@
     CGFloat imageViewY = 3;
     CGFloat imageViewW = 12;
     CGFloat imageViewH = 18;
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
+    self.imageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH)];
     [self addSubview:self.imageView];
     
     CGFloat textFieldX = CGRectGetMaxX(self.imageView.frame) + 15;
@@ -40,7 +40,7 @@
     }
     CGFloat textFieldY = 3;
     CGFloat textFieldH = 15;
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(textFieldX, textFieldY, textFieldW, textFieldH)];
+    self.textField = [[UITextField alloc] initWithFrame:WM_CGRectMake(textFieldX, textFieldY, textFieldW, textFieldH)];
     self.textField.textColor = [WMUIUtility color:@"0x444444"];
     self.textField.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
     [self addSubview:self.textField];
@@ -50,7 +50,7 @@
         CGFloat rightImageViewW = 16;
         CGFloat rightImageViewY = 4;
         CGFloat rightImageViewH = 11;
-        self.rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(rightImageViewX, rightImageViewY, rightImageViewW, rightImageViewH)];
+        self.rightImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(rightImageViewX, rightImageViewY, rightImageViewW, rightImageViewH)];
         [self addSubview:self.rightImageView];
     }
     
@@ -58,7 +58,7 @@
         CGFloat rightX = 260;
         CGFloat rightY = -4;
         CGFloat rightH = 30;
-        self.rightButton = [[UIButton alloc] initWithFrame:CGRectMake(rightX, rightY, 80, rightH)];
+        self.rightButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(rightX, rightY, 80, rightH)];
         [self addSubview:self.rightButton];
     }
     
@@ -66,7 +66,7 @@
     CGFloat x = imageViewX;
     CGFloat y = 29;
     CGFloat h = 1;
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+    UIView *line = [[UIView alloc] initWithFrame:WM_CGRectMake(x, y, w, h)];
     line.backgroundColor = [WMUIUtility color:@"0xcdcdcd"];
     [self addSubview:line];
 }

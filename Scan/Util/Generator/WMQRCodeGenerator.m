@@ -8,6 +8,7 @@
 
 #import "WMQRCodeGenerator.h"
 #import <CoreImage/CoreImage.h>
+#import "WMUIUtility.h"
 
 @implementation WMQRCodeGenerator
 + (UIImage *)generateQRCodeWithContent:(NSString *)content{
@@ -64,7 +65,7 @@
   UIGraphicsBeginImageContext(start_image.size);
   
   // 把二维码图片画上去 (这里是以图形上下文, 左上角为(0,0)点
-  [start_image drawInRect:CGRectMake(0, 0, start_image.size.width, start_image.size.height)];
+  [start_image drawInRect:WM_CGRectMake(0, 0, start_image.size.width, start_image.size.height)];
   
   // 再把小图片画上
   UIImage *icon_image = innerImage;
@@ -73,7 +74,7 @@
   CGFloat icon_imageX = (start_image.size.width - icon_imageW) * 0.5;
   CGFloat icon_imageY = (start_image.size.height - icon_imageH) * 0.5;
   
-  [icon_image drawInRect:CGRectMake(icon_imageX, icon_imageY, icon_imageW, icon_imageH)];
+  [icon_image drawInRect:WM_CGRectMake(icon_imageX, icon_imageY, icon_imageW, icon_imageH)];
   
   //获取当前画得的这张图片
   UIImage *final_image = UIGraphicsGetImageFromCurrentImageContext();

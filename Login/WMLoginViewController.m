@@ -109,7 +109,7 @@
 #pragma mark - Getters and setters
 - (UILabel *)titleLable {
     if (!_titleLable) {
-        _titleLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, Screen_Width, 17)];
+        _titleLable = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 40, Screen_Width, 17)];
         _titleLable.text = @"登录";
         _titleLable.textColor = [WMUIUtility color:@"0x444444"];
         _titleLable.font = [UIFont systemFontOfSize:17];
@@ -120,7 +120,7 @@
 
 - (UIImageView *)logoImageView {
     if (!_logoImageView) {
-        _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(LogoImageX, LogoImageY, LogoImageWidth, LogoImageHeight)];
+        _logoImageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(LogoImageX, LogoImageY, LogoImageWidth, LogoImageHeight)];
         _logoImageView.image = [UIImage imageNamed:@"login_logo"];
     }
     return _logoImageView;
@@ -128,7 +128,7 @@
 
 - (WMUnderLineView *)phoneView {
     if (!_phoneView) {
-        _phoneView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(0, PhoneViewY, Screen_Width, PhoneViewHeight) withType:WMUnderLineViewTypeNormal];
+        _phoneView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(0, PhoneViewY, Screen_Width, PhoneViewHeight) withType:WMUnderLineViewTypeNormal];
         _phoneView.imageView.image = [UIImage imageNamed:@"login_phone"];
 //        _phoneView.rightImageView.image = [UIImage imageNamed:@"login_cancel"];
         _phoneView.textField.placeholder = @"输入手机号";
@@ -140,7 +140,7 @@
 
 - (WMUnderLineView *)passwordView {
     if (!_passwordView) {
-        _passwordView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(0, PasswordViewY, Screen_Width, PasswordViewHeight) withType:WMUnderLineViewTypeNormal];
+        _passwordView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(0, PasswordViewY, Screen_Width, PasswordViewHeight) withType:WMUnderLineViewTypeNormal];
         _passwordView.imageView.image = [UIImage imageNamed:@"login_password"];
 //        _passwordView.rightImageView.image = [UIImage imageNamed:@"login_eye"];
         _passwordView.textField.placeholder = @"输入密码";
@@ -158,13 +158,13 @@
         CGFloat wechatButtonY = PasswordViewY + PasswordViewHeight + 13;
         CGFloat wechatButtonW = 87;
         CGFloat wechatButtonH = 14;
-        _wechatView = [[UIView alloc] initWithFrame:CGRectMake(wechatButtonX, wechatButtonY, wechatButtonW, wechatButtonH)];
+        _wechatView = [[UIView alloc] initWithFrame:WM_CGRectMake(wechatButtonX, wechatButtonY, wechatButtonW, wechatButtonH)];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 17)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(0, 0, 21, 17)];
         imageView.image = [UIImage imageNamed:@"login_weixin"];
         [_wechatView addSubview:imageView];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(21+5, 0, 99, 17)];
+        UILabel *label = [[UILabel alloc] initWithFrame:WM_CGRectMake(21+5, 0, 99, 17)];
         label.text = @"微信登录";
         label.textColor = [WMUIUtility color:@"0x23938b"];
         label.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
@@ -177,7 +177,7 @@
 
 - (UIButton *)loginButton {
     if (!_loginButton) {
-        _loginButton = [[UIButton alloc] initWithFrame:CGRectMake(LoginButtonX, LoginButtonY, LoginButtonW, LoginButtonHeight)];
+        _loginButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(LoginButtonX, LoginButtonY, LoginButtonW, LoginButtonHeight)];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
         _loginButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
         _loginButton.titleLabel.textColor = [WMUIUtility color:@"0xffffff"];
@@ -190,7 +190,7 @@
 
 - (UILabel *)registerLabel {
     if (!_registerLabel) {
-        _registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(RegisterLabelX, RegisterLabelY, RegisterLabelWidth, RegisterLabelHeight)];
+        _registerLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(RegisterLabelX, RegisterLabelY, RegisterLabelWidth, RegisterLabelHeight)];
         _registerLabel.text = @"注册";
         _registerLabel.textAlignment = NSTextAlignmentCenter;
         _registerLabel.font = [UIFont fontWithName:@"Heiti SC" size:15.0];
@@ -204,7 +204,7 @@
 
 - (UILabel *)forgetLabel {
     if (!_forgetLabel) {
-        _forgetLabel = [[UILabel alloc] initWithFrame:CGRectMake(ForgetLabelX, ForgetLabelY, ForgetLabelWidth, ForgetLabelHeight)];
+        _forgetLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(ForgetLabelX, ForgetLabelY, ForgetLabelWidth, ForgetLabelHeight)];
         _forgetLabel.text = @"忘记密码？";
         _forgetLabel.textAlignment = NSTextAlignmentCenter;
         

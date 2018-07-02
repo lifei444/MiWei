@@ -96,14 +96,14 @@
 #pragma mark - Getters & setters
 - (UIImageView *)iconView {
     if (!_iconView) {
-        _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(IconGap, IconGap, IconWidth, IconHeight)];
+        _iconView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(IconGap, IconGap, IconWidth, IconHeight)];
     }
     return _iconView;
 }
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) { 
-        _nameLabel = [self labelWithFrame:CGRectMake(NameX, NameY, Screen_Width, NameHeight)
+        _nameLabel = [self labelWithFrame:WM_CGRectMake(NameX, NameY, Screen_Width, NameHeight)
                                      font:[UIFont boldSystemFontOfSize:15]
                                 textColor:[WMUIUtility color:@"0x444444"]];
     }
@@ -112,7 +112,7 @@
 
 - (UILabel *)typeLabel {
     if (!_typeLabel) {
-        _typeLabel = [self labelWithFrame:CGRectMake(TypeX, TypeY, Screen_Width, TypeHeight)
+        _typeLabel = [self labelWithFrame:WM_CGRectMake(TypeX, TypeY, Screen_Width, TypeHeight)
                                      font:[UIFont systemFontOfSize:13]
                                 textColor:[WMUIUtility color:@"0x666666"]];
     }
@@ -121,7 +121,7 @@
 
 - (UILabel *)timeLabel {
     if (!_timeLabel) {
-        _timeLabel = [self labelWithFrame:CGRectMake(TimeX, TimeY, Screen_Width, TimeHeight)
+        _timeLabel = [self labelWithFrame:WM_CGRectMake(TimeX, TimeY, Screen_Width, TimeHeight)
                                      font:[UIFont systemFontOfSize:14]
                                 textColor:[WMUIUtility color:@"0xff315d"]];
     }
@@ -130,7 +130,7 @@
 
 - (UILabel *)resultLabel {
     if (!_resultLabel) {
-        _resultLabel = [self labelWithFrame:CGRectMake(ResultX, ResultY, Screen_Width, ResultHeight)
+        _resultLabel = [self labelWithFrame:WM_CGRectMake(ResultX, ResultY, Screen_Width, ResultHeight)
                                        font:[UIFont systemFontOfSize:14]
                                   textColor:[WMUIUtility color:@"0xc8c8c8"]];
     }

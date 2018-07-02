@@ -8,6 +8,7 @@
 
 #import "WMScanInputViewController.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @interface WMScanInputViewController ()
 @property (nonatomic,strong) UITextField *SNTextField;
@@ -20,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     titleLabel.text = @"手动输入";
     titleLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = titleLabel;
@@ -42,7 +43,7 @@
 }
 
 - (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     [btn setTitle:@"切换扫描" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
@@ -58,7 +59,7 @@
     CGFloat SNTextFieldW = Screen_Width - 2 *SNTextFieldX;
     CGFloat SNTextFieldH = 44;
     
-    self.SNTextField = [[UITextField alloc] initWithFrame:CGRectMake(SNTextFieldX, SNTextFieldY, SNTextFieldW, SNTextFieldH)];
+    self.SNTextField = [[UITextField alloc] initWithFrame:WM_CGRectMake(SNTextFieldX, SNTextFieldY, SNTextFieldW, SNTextFieldH)];
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.alignment = NSTextAlignmentCenter;
     NSAttributedString *attri = [[NSAttributedString alloc] initWithString:@"请输入设备SN号" attributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor],NSFontAttributeName:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style}];
@@ -71,7 +72,7 @@
     CGFloat SNLabelW = Screen_Width - 2 *SNTextFieldX;
     CGFloat SNLabelH = 44;
     
-    self.SNLabel = [[UILabel alloc] initWithFrame:CGRectMake(SNLabelX, SNLabelY, SNLabelW, SNLabelH)];
+    self.SNLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(SNLabelX, SNLabelY, SNLabelW, SNLabelH)];
     self.SNLabel.textColor = [UIColor whiteColor];
     self.SNLabel.text = @"请输入设备SN号";
     [self.view addSubview:self.SNLabel];
@@ -81,7 +82,7 @@
     CGFloat confirmButtonW = Screen_Width - 2 *SNTextFieldX;
     CGFloat confirmButtonH = 44;
     
-    self.confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(confirmButtonX, confirmButtonY, confirmButtonW, confirmButtonH)];
+    self.confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(confirmButtonX, confirmButtonY, confirmButtonW, confirmButtonH)];
     [self.confirmButton setTitle:@"确认" forState:UIControlStateNormal];
     self.confirmButton.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.confirmButton];

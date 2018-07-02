@@ -8,6 +8,7 @@
 
 #import "WMMeAddressViewController.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @interface WMMeAddressViewController ()
 @property(nonatomic,strong) UILabel *addressLabel;
@@ -30,7 +31,7 @@
 
 - (UILabel *)addressLabel {
     if(!_addressLabel) {
-        _addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, Navi_Height+ 20, 60 ,44)];
+        _addressLabel = [[UILabel alloc]initWithFrame:WM_CGRectMake(0, Navi_Height+ 20, 60 ,44)];
         _addressLabel.backgroundColor = [UIColor whiteColor];
         _addressLabel.text = @"地址";
         _addressLabel.textAlignment = NSTextAlignmentCenter;
@@ -40,7 +41,7 @@
 
 - (UITextField *)addressField {
     if(!_addressField) {
-        _addressField = [[UITextField alloc] initWithFrame:CGRectMake(60, Navi_Height+20, self.view.frame.size.width-60, 44)];
+        _addressField = [[UITextField alloc] initWithFrame:WM_CGRectMake(60, Navi_Height+20, self.view.frame.size.width-60, 44)];
         _addressField.backgroundColor = [UIColor whiteColor];
         _addressField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
@@ -49,7 +50,7 @@
 
 - (UIButton *)confirmButton {
     if(!_confirmButton) {
-        _confirmButton = [[UIButton alloc] initWithFrame:CGRectMake(20, Navi_Height+80, self.view.frame.size.width-40, 44)];
+        _confirmButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, Navi_Height+80, self.view.frame.size.width-40, 44)];
         [_confirmButton setTitle:@"保存" forState:UIControlStateNormal];
         _confirmButton.backgroundColor = [UIColor greenColor];
         _confirmButton.layer.cornerRadius = 5;

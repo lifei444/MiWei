@@ -11,6 +11,7 @@
 #import "WMCommonDefine.h"
 #import "WMDeviceInfoPMView.h"
 #import "WMDeviceInfoControlView.h"
+#import "WMUIUtility.h"
 
 @interface WMDeviceInfoViewController ()
 @property (nonatomic,strong) WMDeviceInfoHeadView *headView;
@@ -34,7 +35,7 @@
     [self.scrollView addSubview:self.chartView];
     [self.scrollView addSubview:self.upgradeButton];
     
-    self.scrollView.contentSize = CGSizeMake(Screen_Width, CGRectGetMaxY(self.upgradeButton.frame)+20);
+    self.scrollView.contentSize = WM_CGSizeMake(Screen_Width, CGRectGetMaxY(self.upgradeButton.frame)+20);
     
     [self loadChart];
 }
@@ -98,7 +99,7 @@
 
 - (UIButton *)upgradeButton {
     if(!_upgradeButton) {
-        _upgradeButton = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.chartView.frame)+20, self.view.bounds.size.width - 40, 44)];
+        _upgradeButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, CGRectGetMaxY(self.chartView.frame)+20, self.view.bounds.size.width - 40, 44)];
         [_upgradeButton setTitle:@"升级" forState:UIControlStateNormal];
         [_upgradeButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_upgradeButton addTarget:self action:@selector(upgradeEvent) forControlEvents:UIControlEventTouchUpInside];
@@ -109,7 +110,7 @@
 
 - (WKEchartsView *)chartView {
     if(!_chartView) {
-        _chartView = [[WKEchartsView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.controlView.frame)+20, self.view.frame.size.width, 300)];
+        _chartView = [[WKEchartsView alloc] initWithFrame:WM_CGRectMake(0, CGRectGetMaxY(self.controlView.frame)+20, self.view.frame.size.width, 300)];
     }
     return _chartView;
 }
@@ -118,7 +119,7 @@
     if(!_headView) {
         NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"WMDeviceInfoHeadView" owner:self options:nil];
         _headView  = [xibs firstObject];
-        _headView.frame = CGRectMake(0, 0,Screen_Width , [WMDeviceInfoHeadView viewHeight]);
+        _headView.frame = WM_CGRectMake(0, 0,Screen_Width , [WMDeviceInfoHeadView viewHeight]);
     }
     return _headView;
 }
@@ -127,7 +128,7 @@
     if(!_pmView) {
         NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"WMDeviceInfoPMView" owner:self options:nil];
         _pmView  = [xibs firstObject];
-        _pmView.frame = CGRectMake(20, CGRectGetMaxY(self.headView.frame), Screen_Width-20*2, 100);
+        _pmView.frame = WM_CGRectMake(20, CGRectGetMaxY(self.headView.frame), Screen_Width-20*2, 100);
     }
     return _pmView;
 }
@@ -136,7 +137,7 @@
     if(!_controlView) {
         NSArray *xibs = [[NSBundle mainBundle] loadNibNamed:@"WMDeviceInfoControlView" owner:self options:nil];
         _controlView  = [xibs firstObject];
-        _controlView.frame = CGRectMake(20, CGRectGetMaxY(self.pmView.frame)+20, Screen_Width-20*2, 280);
+        _controlView.frame = WM_CGRectMake(20, CGRectGetMaxY(self.pmView.frame)+20, Screen_Width-20*2, 280);
     }
     return _controlView;
 }

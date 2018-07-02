@@ -12,6 +12,7 @@
 #import <Photos/Photos.h>
 #import "WMQRCode.h"
 #import "WMScanInputViewController.h"
+#import "WMUIUtility.h"
 
 @interface WMScanViewController ()<WMQRCodeScannerDelegate>
 @property(nonatomic, strong) WMScanView *scanningView;
@@ -22,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setRightNavBar];
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     titleLabel.text = @"设备扫描";
     titleLabel.textColor = [UIColor whiteColor];
     self.navigationItem.titleView = titleLabel;
@@ -55,7 +56,7 @@
 }
 
 - (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 80, 30)];
     [btn setTitle:@"手动输入" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
@@ -79,7 +80,7 @@
     //保证在扫描动画所在的范围内识别二维码
     CGRect scanRect = [self.view convertRect:self.scanningView.scanContentView.frame toView:self.view];
     CGRect rect =
-    CGRectMake(scanRect.origin.x / self.view.frame.size.width, scanRect.origin.y / self.view.frame.size.height,
+    WM_CGRectMake(scanRect.origin.x / self.view.frame.size.width, scanRect.origin.y / self.view.frame.size.height,
                (scanRect.size.width + scanRect.origin.x) / self.view.frame.size.width,
                (scanRect.size.height + scanRect.origin.y) / self.view.frame.size.height);
     //    rect = CGRectMake(0, 0, 1, 1); -----rect即为最终的扫描比例范围，最大为（0，0，1，1），此时全屏都可扫描；

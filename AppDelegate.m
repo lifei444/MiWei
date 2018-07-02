@@ -10,16 +10,17 @@
 #import "WMLoginViewController.h"
 #import "WMMainTabbarViewController.h"
 #import "WMNavigationViewController.h"
+#import "WMUIUtility.h"
 
 @interface AppDelegate ()
-
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    BOOL isLogined = YES;
+    [WMUIUtility registerAutoSizeScale];
+    
+    BOOL isLogined = NO;
     if(isLogined) {
         WMMainTabbarViewController *tabVC = [[WMMainTabbarViewController alloc] init];
         self.window.rootViewController = tabVC;

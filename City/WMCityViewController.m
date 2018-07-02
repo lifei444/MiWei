@@ -8,6 +8,7 @@
 
 #import "WMCityViewController.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @interface WMCityViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property (nonatomic,strong) UISearchBar *searchBar;
@@ -130,7 +131,7 @@
 
 - (UISearchBar *)searchBar {
     if(!_searchBar) {
-        _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 44)];
+        _searchBar = [[UISearchBar alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, 44)];
         _searchBar.delegate = self;
         _searchBar.placeholder = @"搜索";
         _searchBar.backgroundImage = [UIImage new];

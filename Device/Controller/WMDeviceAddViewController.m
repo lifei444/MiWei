@@ -8,6 +8,7 @@
 
 #import "WMDeviceAddViewController.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @interface WMDeviceAddViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableview;
@@ -46,7 +47,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 250)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(0, 0, self.view.bounds.size.width, 250)];
     imageView.backgroundColor = [UIColor greenColor];
     return imageView;
 }
@@ -56,9 +57,9 @@
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
+    UIView *view = [[UIView alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, 200)];
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(20, 150, Screen_Width-40, 44)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(20, 150, Screen_Width-40, 44)];
     btn.backgroundColor = [UIColor greenColor];
     [btn setTitle:@"添加" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(addEvent) forControlEvents:UIControlEventTouchUpInside];

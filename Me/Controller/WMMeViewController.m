@@ -14,6 +14,7 @@
 #import "WMFeedbackViewController.h"
 #import "WMCommonDefine.h"
 #import "WMAlertManageViewController.h"
+#import "WMUIUtility.h"
 
 #define kheight 269
 
@@ -147,7 +148,7 @@
 
 - (UIImageView *)settingImageView {
     if (!_settingImageView) {
-        CGRect rect = CGRectMake(Screen_Width-15-20, 37, 20, 19);
+        CGRect rect = WM_CGRectMake(Screen_Width-15-20, 37, 20, 19);
         _settingImageView = [[UIImageView alloc] initWithFrame:rect];
         _settingImageView.image = [UIImage imageNamed:@"me_setting"];
         _settingImageView.userInteractionEnabled = YES;
@@ -159,7 +160,7 @@
 
 - (UITableView *)tableView {
     if(!_tableView) {
-        _tableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, kheight, Screen_Width, Screen_Height - kheight) style:UITableViewStyleGrouped];
+        _tableView  = [[UITableView alloc] initWithFrame:WM_CGRectMake(0, kheight, Screen_Width, Screen_Height - kheight) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.sectionHeaderHeight = 0;

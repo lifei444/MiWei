@@ -88,7 +88,7 @@
 #pragma mark - Getters and setters
 - (WMUnderLineView *)phoneView {
     if (!_phoneView) {
-        _phoneView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, PhoneY, ViewWidth, ViewHeight) withType:WMUnderLineViewTypeWithRightButton];
+        _phoneView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, PhoneY, ViewWidth, ViewHeight) withType:WMUnderLineViewTypeWithRightButton];
         _phoneView.imageView.image = [UIImage imageNamed:@"register_phone"];
         _phoneView.textField.placeholder = @"输入手机号";
         [_phoneView.rightButton setTitle:@"获取验证码" forState:UIControlStateNormal];
@@ -101,7 +101,7 @@
 
 - (WMUnderLineView *)verifyView {
     if (!_verifyView) {
-        _verifyView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, VerifyY, ViewWidth, ViewHeight)];
+        _verifyView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, VerifyY, ViewWidth, ViewHeight)];
         _verifyView.imageView.image = [UIImage imageNamed:@"register_verify"];
         _verifyView.textField.placeholder = @"输入验证码";
     }
@@ -110,7 +110,7 @@
 
 - (WMUnderLineView *)passView {
     if (!_passView) {
-        _passView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, PassY, ViewWidth, ViewHeight)];
+        _passView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, PassY, ViewWidth, ViewHeight)];
         _passView.imageView.image = [UIImage imageNamed:@"register_password"];
         _passView.textField.placeholder = @"输入密码";
         _passView.textField.secureTextEntry = YES;
@@ -120,7 +120,7 @@
 
 - (WMUnderLineView *)confirmView {
     if (!_confirmView) {
-        _confirmView = [[WMUnderLineView alloc] initWithFrame:CGRectMake(ViewX, ConfirmY, ViewWidth, ViewHeight)];
+        _confirmView = [[WMUnderLineView alloc] initWithFrame:WM_CGRectMake(ViewX, ConfirmY, ViewWidth, ViewHeight)];
         _confirmView.imageView.image = [UIImage imageNamed:@"register_password"];
         _confirmView.textField.placeholder = @"确认密码";
         _confirmView.textField.secureTextEntry = YES;
@@ -130,7 +130,7 @@
 
 - (UIButton *)registerButton {
     if (!_registerButton) {
-        _registerButton = [[UIButton alloc] initWithFrame:CGRectMake(RegisterX, RegisterY, RegisterW, RegisterHeight)];
+        _registerButton = [[UIButton alloc] initWithFrame:WM_CGRectMake(RegisterX, RegisterY, RegisterW, RegisterHeight)];
         _registerButton.backgroundColor = [WMUIUtility color:@"0x23938b"];
         _registerButton.titleLabel.textColor = [WMUIUtility color:@"0xffffff"];
         [_registerButton.layer setCornerRadius:4];

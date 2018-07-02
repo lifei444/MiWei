@@ -8,6 +8,7 @@
 
 #import "WMPayRecordCell.h"
 #import "WMCommonDefine.h"
+#import "WMUIUtility.h"
 
 @interface WMPayRecordCell()
 @property (nonatomic,strong) UILabel *nameLabel;
@@ -36,7 +37,7 @@
     CGFloat nameLabelW = 100;
     CGFloat nameLabelH = 20;
     
-    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameLabelX, nameLabelY, nameLabelW, nameLabelH)];
+    self.nameLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(nameLabelX, nameLabelY, nameLabelW, nameLabelH)];
     self.nameLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.nameLabel];
     
@@ -45,7 +46,7 @@
     CGFloat dateLabelW = 100;
     CGFloat dateLabelH = 20;
     
-    self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(dateLabelX, dateLabelY, dateLabelW, dateLabelH)];
+    self.dateLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(dateLabelX, dateLabelY, dateLabelW, dateLabelH)];
     self.dateLabel.textAlignment = NSTextAlignmentLeft;
     [self.contentView addSubview:self.dateLabel];
     
@@ -55,7 +56,7 @@
     CGFloat priceLabelY = nameLabelY;
     CGFloat priceLabelH = 20;
     
-    self.priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(priceLabelX, priceLabelY, priceLabelW, priceLabelH)];
+    self.priceLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(priceLabelX, priceLabelY, priceLabelW, priceLabelH)];
     self.priceLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.priceLabel];
     
@@ -64,7 +65,7 @@
     CGFloat timeLabelY = dateLabelY;
     CGFloat timeLabelH = 20;
     
-    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
+    self.timeLabel = [[UILabel alloc] initWithFrame:WM_CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
     self.timeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.timeLabel];
     

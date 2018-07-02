@@ -19,7 +19,7 @@
 
 @implementation WMMeHeaderView
 + (instancetype)headerView {
-    WMMeHeaderView *v = [[self alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, kheight)];
+    WMMeHeaderView *v = [[self alloc] initWithFrame:WM_CGRectMake(0, 0, Screen_Width, kheight)];
     return v;
 }
 
@@ -38,7 +38,7 @@
 #pragma mark - Getters and setters
 - (UIImageView *)bgView {
     if (!_bgView) {
-        CGRect rect = CGRectMake(0, 0, Screen_Width, kheight);
+        CGRect rect = WM_CGRectMake(0, 0, Screen_Width, kheight);
         _bgView = [[UIImageView alloc] initWithFrame:rect];
         _bgView.image = [UIImage imageNamed:@"me_bg"];
     }
@@ -47,7 +47,7 @@
 
 - (UILabel *)titleLable {
     if (!_titleLable) {
-        CGRect rect = CGRectMake(0, 40, Screen_Width, 17);
+        CGRect rect = WM_CGRectMake(0, 40, Screen_Width, 17);
         _titleLable = [[UILabel alloc] initWithFrame:rect];
         _titleLable.textAlignment = NSTextAlignmentCenter;
         _titleLable.textColor = [WMUIUtility color:@"0xffffff"];
@@ -59,7 +59,7 @@
 
 - (UIImageView *)portraitImageView {
     if (!_portraitImageView) {
-        CGRect rect = CGRectMake((Screen_Width-110)/2, 80, 110, 110);
+        CGRect rect = WM_CGRectMake((Screen_Width-110)/2, 80, 110, 110);
         _portraitImageView = [[UIImageView alloc] initWithFrame:rect];
         _portraitImageView.layer.cornerRadius = 50;
         _portraitImageView.layer.masksToBounds = YES;
@@ -70,7 +70,7 @@
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
-        CGRect rect = CGRectMake(0, 80+110+12, Screen_Width, 16);
+        CGRect rect = WM_CGRectMake(0, 80+110+12, Screen_Width, 16);
         _nameLabel = [[UILabel alloc] initWithFrame:rect];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.textColor = [WMUIUtility color:@"0xffffff"];
@@ -82,7 +82,7 @@
 
 - (UILabel *)addressLabel {
     if (!_addressLabel) {
-        CGRect rect = CGRectMake(0, 80+110+12+16+12, Screen_Width, 15);
+        CGRect rect = WM_CGRectMake(0, 80+110+12+16+12, Screen_Width, 15);
         _addressLabel = [[UILabel alloc] initWithFrame:rect];
         _addressLabel.textAlignment = NSTextAlignmentCenter;
         _addressLabel.textColor = [WMUIUtility color:@"0xffffff"];

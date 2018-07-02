@@ -15,11 +15,12 @@
 #import "WMDeviceModel.h"
 #import "WMDeviceCell.h"
 #import "WMUIUtility.h"
+#import "WMCommonDefine.h"
 
 static NSString *deviceCellIdentifier = @"WMDeviceCell";
 
 #define SearchBarX                  8
-#define SearchBarY                  (20 + 44 + 7)
+#define SearchBarY                  (Navi_Height + 7)
 #define SearchBarWidth              359
 #define SearchBarHeight             40
 
@@ -62,19 +63,19 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
 //    self.searchController.dimsBackgroundDuringPresentation = false;
-    self.searchController.searchBar.frame = CGRectMake(SearchBarX, SearchBarY, SearchBarWidth, SearchBarHeight);
+    self.searchController.searchBar.frame = WM_CGRectMake(SearchBarX, SearchBarY, SearchBarWidth, SearchBarHeight);
     
     
     [self.view addSubview:self.searchController.searchBar];
     
-    self.collectionView.frame = CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
+    self.collectionView.frame = WM_CGRectMake(CollectionX, CollectionY, CollectionWidth, CollectionHeight);
     [self.collectionView registerClass:[WMDeviceCell class] forCellWithReuseIdentifier:deviceCellIdentifier];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 //返回每个cell的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(CellWidth, CellHeight);
+    return WM_CGSizeMake(CellWidth, CellHeight);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
@@ -112,7 +113,7 @@ static NSString *deviceCellIdentifier = @"WMDeviceCell";
 
 #pragma mark - private
 - (void)setRightNavBar {
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:WM_CGRectMake(0, 0, 32, 32)];
     [btn setImage:[UIImage imageNamed:@"device_scan"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(scan:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
