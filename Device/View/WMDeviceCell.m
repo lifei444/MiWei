@@ -60,7 +60,7 @@
         [self.contentView addSubview:self.typeLabel];
         [self.contentView addSubview:self.timeLabel];
         [self.contentView addSubview:self.resultLabel];
-        self.contentView.backgroundColor = [UIColor purpleColor];
+        self.contentView.backgroundColor = [UIColor whiteColor];
         //TODO
         //        [self.contentView addSubview:self.priceLabel];
         //        [self.contentView addSubview:self.authorityLabel];
@@ -84,7 +84,6 @@
 }
 
 - (void)setDataModel:(WMDeviceModel *)model {
-    self.iconView.backgroundColor = [UIColor redColor];
     self.nameLabel.text = @"小明的设备";
     self.typeLabel.text = @"租赁设备";
     self.timeLabel.text = @"01:20:09";
@@ -97,6 +96,7 @@
 - (UIImageView *)iconView {
     if (!_iconView) {
         _iconView = [[UIImageView alloc] initWithFrame:WM_CGRectMake(IconGap, IconGap, IconWidth, IconHeight)];
+        _iconView.image = [UIImage imageNamed:@"device_cell_icon"];
     }
     return _iconView;
 }
